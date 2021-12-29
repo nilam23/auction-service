@@ -9,12 +9,16 @@ async function createAuction(event, context) {
   // const {title} = JSON.parse(event.body);
   const {title} = event.body; // because of httpJsonBodyParser
   const now = new Date();
-
+  const endDate = new Date();
+  // endDate.setDays(now.getDays() + 1);
+  endDate.setHours(now.getHours() + 1);
+  
   const auction = {
     id: uuid(),
     title,
     status: 'OPEN',
     createdAt: now.toISOString(),
+    endingAt: endDate.toISOString(),
     highestBid: {
       amount: 0,
     }

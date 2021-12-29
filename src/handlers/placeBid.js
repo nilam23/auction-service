@@ -10,6 +10,13 @@ async function placeBid(event, context) {
 
     const auction = await getAuctionById(id);
 
+    if(auction.status === 'CLOSED') {
+        return {
+            statusCode: 403,
+            body: `Can't place a bid on a closed auction.`
+        }
+    }
+
     if(amount <= auction.highestBid.amount) {
         return {
             statusCode: 403,
